@@ -1,0 +1,10 @@
+# train and val datasets (image directory or *.txt file with image paths)
+train: /mnt/data/datasets/2022_GeoAI_Martian_Challenge_Dataset/train.txt  #  images
+val: /mnt/data/datasets/2022_GeoAI_Martian_Challenge_Dataset/val.txt  #  images
+test: /mnt/data/datasets/2022_GeoAI_Martian_Challenge_Dataset/test.txt  #  images 
+
+# number of classes
+nc: 1
+
+# class names
+names: ['crater']
