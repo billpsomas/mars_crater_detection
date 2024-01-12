@@ -4,16 +4,26 @@ import os
 from PIL import Image
 from ultralytics import YOLO
 
+def convert_bboxes(bxs):
+    converted_bboxes = []
+    for bx in bxs:
+        x_center, y_center, width, height = bx
+        xmin = x_center - width / 2
+        ymin = y_center - height / 2
+        converted_bboxes.append([xmin, ymin, width, height])
+    return converted_bboxes
+
 # Argument parser
 parser = argparse.ArgumentParser(description='YOLOv8 Model Evaluation')
 parser.add_argument('--imgsz', type=int, default=256, help='image size')
-parser.add_argument('--conf', type=float, default=0.4, help='confidence threshold')
+parser.add_argument('--conf', type=float, default=0.05, help='confidence threshold')
+parser.add_argument('--iou', type=float, default=0.5, help='IOU threshold')
 parser.add_argument('--source', type=str, default="/mnt/data/datasets/2022_GeoAI_Martian_Challenge_Dataset/val_images", help='source directory for images')
-parser.add_argument('--save_dir', type=str, default="/mnt/data/bill/code/yolov8/runs/detect/yolov8n-mars-256-evaluation-results/", help='directory to save results')
+parser.add_argument('--save_dir', type=str, default="/mnt/data/bill/code/yolov8/runs/detect/yolov5x-mars-256-evaluation-results/", help='directory to save results')
 parser.add_argument('--json_name', type=str, default="results.json", help='name of the JSON file to save results')
 parser.add_argument('--save_imgs', action='store_true', help='flag to save images')
 parser.add_argument('--save_txts', action='store_true', help='flag to save text files')
-parser.add_argument('--model_name', type=str, default="/mnt/data/bill/code/yolov8/runs/detect/yolov8n-mars-256/weights/best.pt", help='path to the model weights')
+parser.add_argument('--model_name', type=str, default="/mnt/data/bill/code/yolov8/runs/detect/yolov5x-mars-imgsz-256-batch-128/weights/best.pt", help='path to the model weights')
 
 args = parser.parse_args()
 
@@ -29,7 +39,7 @@ if args.save_txts:
 # Load a YOLOv8 model from a pre-trained weights file
 model = YOLO(args.model_name)
 
-results = model(args.source, classes=0, imgsz=args.imgsz, conf=args.conf, stream=True)
+results = model(args.source, classes=0, imgsz=args.imgsz, conf=args.conf, iou=args.iou, stream=True)
 
 # Initialize an empty dictionary or load existing data
 json_file_path = os.path.join(args.save_dir, args.json_name)
@@ -52,6 +62,7 @@ for res in results:
 
     # Save JSON for official COCO format evaluation
     bxs = res.boxes.xywh.cpu().detach().numpy().tolist() # export boxes to a list
+    bxs = convert_bboxes(bxs)
     cnfs = res.boxes.conf.cpu().detach().numpy().tolist() # export respective confidences to a list
 
     merged = [sublist + [other] for sublist, other in zip(bxs, cnfs)] # merge
