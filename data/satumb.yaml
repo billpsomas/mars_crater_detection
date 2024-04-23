@@ -1,0 +1,10 @@
+# train and val datasets (image directory or *.txt file with image paths)
+train: /mnt/data/datasets/satumb/train.txt  #  images
+val: /mnt/data/datasets/satumb/val.txt  #  images
+test: /mnt/data/datasets/satumb/test.txt  #  images 
+
+# number of classes
+nc: 2
+
+# class names
+names: ['umbrella_organized', 'umbrella_wild']
