@@ -34,3 +34,24 @@ python3 evaluate.py 'results.json'
 ```
 
 WATCH OUT: `gt_eval.json` has only train and val groundtruths (we currently use val). In order to evaluate on test set, we need to register to the official competition. 
+
+---
+# Model Deployment
+In order to facilitate the reproduction of the experiments, we have made all necessary model files available to the user for all device architectures presented in the relevant paper. For all model variations, the original pytorch (`.pt`) model was used as the reference model. Having created the pytorch model in each case, we exported all other model formats required, using the Ultralytics library export function.
+We also include the ONNX-format for all models to enable greater flexibility in future re-use of the work in this repository.
+
+In detail, the following model files are available for each processing architecture:
+### CPU Deployment
+All CPU experiments were conducted using a FP32-format pytorch (`.pt`) model file for each network. The same model file was used both for the high-end Desktop CPU and the embedded CPU. 
+
+### GPU Deployment
+For the high-end, server GPU, a half-precision FP16 pytorch (`.pt`) model was used. This was dervived from the original FP32 pytorch model.
+
+### Jetson Deployment (Embedded GPU)
+In the case of the Nvidia Jetson devices (Jetson Nano and Jetson Orin), the FP32 pytorch models were converted to FP32 TensorRT format (`.engine`), optimized for Jetson GPUs. This was done as TensorRT allows for maximum performance on the Nvidia devices. Alternatively, deployment on the Jetson GPUs can also be achieved using the pytorch (`.pt`) model format, sacrificing some performance.
+
+### Google Coral Deployment (Edge TPU)
+The Edge TPU supports only TensorFlow Lite models that are fully 8-bit quantized and then compiled specifically for the Edge TPU using the Google Edge TPU compiler. The above process can either be done manually or by using the Ultralytics export function. We include the Edge TPU converted `.tflite` model files in this repository.
+
+### AMD Versal Deployment (ACAP)
+TBD
