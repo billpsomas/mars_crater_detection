@@ -54,4 +54,4 @@ In the case of the Nvidia Jetson devices (Jetson Nano and Jetson Orin), the FP32
 The Edge TPU supports only TensorFlow Lite models that are fully 8-bit quantized and then compiled specifically for the Edge TPU using the Google Edge TPU compiler. The above process can either be done manually or by using the Ultralytics export function. We include the Edge TPU converted `.tflite` model files in this repository.
 
 ### AMD Versal Deployment (ACAP)
-TBD
+Check out the [Versal README](./versal_acap/readme.md) for details on deploying YOLO on the AMD Versal.
