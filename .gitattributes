@@ -1,3 +1,4 @@
 *.onnx filter=lfs diff=lfs merge=lfs -text
 *.pt filter=lfs diff=lfs merge=lfs -text
 *.engine filter=lfs diff=lfs merge=lfs -text
+versal_acap/Versal_Board/model_src/models.zip.tar filter=lfs diff=lfs merge=lfs -text
