@@ -1,5 +1,5 @@
 # Evaluation of Resource-Efficient Crater Detectors on Embedded Systems
-This is the accompanying repository to the following IGARSS 2024 oral paper: [[arXiv](https://arxiv.org/abs/2405.16953), [slides](http://users.ntua.gr/psomasbill/Mars_IGARSS2024_slides.pdf)]
+This is the accompanying repository to the following IGARSS 2024 oral paper: [[arXiv](https://arxiv.org/abs/2405.16953)[, [[slides](http://users.ntua.gr/psomasbill/Mars_IGARSS2024_slides.pdf)]
 
 ## Overview
 Real-time analysis of Martian craters is crucial for mission-critical operations, including safe landings and geological exploration. This work leverages the latest breakthroughs for on-the-edge crater detection aboard spacecraft. We rigorously benchmark several YOLO networks using a Mars craters dataset, analyzing their performance on embedded systems with a focus on optimization for low-power devices. We optimize this process for a new wave of cost-effective, commercial-off-the-shelf-based smaller satellites. Implementations on diverse platforms, including Google Coral Edge TPU, AMD Versal SoC VCK190, Nvidia Jetson Nano and Jetson AGX Orin, undergo a detailed trade-off analysis. Our findings identify optimal network-device pairings, enhancing the feasibility of crater detection on resource-constrained hardware and setting a new precedent for efficient and resilient extraterrestrial imaging.
